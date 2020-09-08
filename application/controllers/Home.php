@@ -1,60 +1,65 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends AUTH_Controller {
-	public function __construct() {
-		parent::__construct();
-		$this->load->model('M_pegawai');
-		$this->load->model('M_posisi');
-		$this->load->model('M_kota');
-	}
+class Home extends AUTH_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('M_mahasiswa');
+        $this->load->model('M_jurusan');
+        $this->load->model('M_fakultas');
+        $this->load->model('M_kota');
+    }
 
-	public function index() {
-		$data['jml_pegawai'] 	= $this->M_pegawai->total_rows();
-		$data['jml_posisi'] 	= $this->M_posisi->total_rows();
-		$data['jml_kota'] 		= $this->M_kota->total_rows();
-		$data['userdata'] 		= $this->userdata;
+    public function index()
+    {
+        $data['jml_mahasiswa']     = $this->M_mahasiswa->total_rows();
+        $data['jml_jurusan']     = $this->M_jurusan->total_rows();
+        $data['jml_fakultas']     = $this->M_fakultas->total_rows();
+        $data['jml_kota']         = $this->M_kota->total_rows();
+        $data['userdata']         = $this->userdata;
 
-		$rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
-		
-		$posisi 				= $this->M_posisi->select_all();
-		$index = 0;
-		foreach ($posisi as $value) {
-		    $color = '#' .$rand[rand(0,15)] .$rand[rand(0,15)] .$rand[rand(0,15)] .$rand[rand(0,15)] .$rand[rand(0,15)] .$rand[rand(0,15)];
+        $rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
 
-			$pegawai_by_posisi = $this->M_pegawai->select_by_posisi($value->id);
+        $jurusan                 = $this->M_jurusan->select_all();
+        $index = 0;
+        foreach ($jurusan as $value) {
+            $color = '#' . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)];
 
-			$data_posisi[$index]['value'] = $pegawai_by_posisi->jml;
-			$data_posisi[$index]['color'] = $color;
-			$data_posisi[$index]['highlight'] = $color;
-			$data_posisi[$index]['label'] = $value->nama;
-			
-			$index++;
-		}
+            $mahasiswa_by_jurusan = $this->M_mahasiswa->select_by_jurusan($value->id);
 
-		$kota 				= $this->M_kota->select_all();
-		$index = 0;
-		foreach ($kota as $value) {
-		    $color = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
+            $data_jurusan[$index]['value'] = $mahasiswa_by_jurusan->jml;
+            $data_jurusan[$index]['color'] = $color;
+            $data_jurusan[$index]['highlight'] = $color;
+            $data_jurusan[$index]['label'] = $value->nama;
 
-			$pegawai_by_kota = $this->M_pegawai->select_by_kota($value->id);
+            $index++;
+        }
 
-			$data_kota[$index]['value'] = $pegawai_by_kota->jml;
-			$data_kota[$index]['color'] = $color;
-			$data_kota[$index]['highlight'] = $color;
-			$data_kota[$index]['label'] = $value->nama;
-			
-			$index++;
-		}
+        $kota                 = $this->M_kota->select_all();
+        $index = 0;
+        foreach ($kota as $value) {
+            $color = '#' . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)];
 
-		$data['data_posisi'] = json_encode($data_posisi);
-		$data['data_kota'] = json_encode($data_kota);
+            $mahasiswa_by_kota = $this->M_mahasiswa->select_by_kota($value->id);
 
-		$data['page'] 			= "home";
-		$data['judul'] 			= "Beranda";
-		$data['deskripsi'] 		= "Manage Data CRUD";
-		$this->template->views('home', $data);
-	}
+            $data_kota[$index]['value'] = $mahasiswa_by_kota->jml;
+            $data_kota[$index]['color'] = $color;
+            $data_kota[$index]['highlight'] = $color;
+            $data_kota[$index]['label'] = $value->nama;
+
+            $index++;
+        }
+
+        $data['data_jurusan'] = json_encode($data_jurusan);
+        $data['data_kota'] = json_encode($data_kota);
+
+        $data['page']             = "home";
+        $data['judul']             = "Beranda";
+        $data['deskripsi']         = "Manage Data CRUD";
+        $this->template->views('home', $data);
+    }
 }
 
 /* End of file Home.php */

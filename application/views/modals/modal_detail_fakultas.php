@@ -1,6 +1,6 @@
 <div class="col-md-12 well">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h3 style="display:block; text-align:center;"><i class="fa fa-location-arrow"></i> List Mahasiswa (Dari Kota: <b><?php echo $kota->nama; ?></b>)</h3>
+    <h3 style="display:block; text-align:center;"><i class="fa fa-briefcase"></i> List Mahasiswa (Fakultas: <b><?php echo $fakultas->nama; ?></b>)</h3>
 
     <div class="box box-body">
         <table id="tabel-detail" class="table table-bordered table-striped">
@@ -15,7 +15,7 @@
             </thead>
             <tbody id="data-mahasiswa">
                 <?php
-                foreach ($dataKota as $mahasiswa) {
+                foreach ($dataFakultas as $mahasiswa) {
                 ?>
                     <tr>
                         <td><?php echo $mahasiswa->id; ?></td>

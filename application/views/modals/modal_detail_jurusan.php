@@ -1,6 +1,6 @@
 <div class="col-md-12 well">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h3 style="display:block; text-align:center;"><i class="fa fa-location-arrow"></i> List Mahasiswa (Dari Kota: <b><?php echo $kota->nama; ?></b>)</h3>
+    <h3 style="display:block; text-align:center;"><i class="fa fa-location-arrow"></i> List Mahasiswa (Dari Jurusan: <b><?php echo $jurusan->nama; ?></b>)</h3>
 
     <div class="box box-body">
         <table id="tabel-detail" class="table table-bordered table-striped">
@@ -9,19 +9,19 @@
                     <th>NIM</th>
                     <th>Nama</th>
                     <th>Jenis Kelamin</th>
-                    <th>Jurusan</th>
+                    <th>Kota Asal</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody id="data-mahasiswa">
                 <?php
-                foreach ($dataKota as $mahasiswa) {
+                foreach ($dataJurusan as $mahasiswa) {
                 ?>
                     <tr>
                         <td><?php echo $mahasiswa->id; ?></td>
                         <td style="min-width:230px;"><?php echo $mahasiswa->mahasiswa; ?></td>
                         <td><?php echo $mahasiswa->kelamin; ?></td>
-                        <td><?php echo $mahasiswa->jurusan; ?></td>
+                        <td><?php echo $mahasiswa->kota; ?></td>
                         <td><?php if ($mahasiswa->statusMahasiswa == 1) {
                                 echo "Lulus";
                             } else echo "Belum Lulus"; ?></td>
